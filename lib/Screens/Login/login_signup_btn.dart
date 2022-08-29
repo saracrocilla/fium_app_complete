@@ -1,11 +1,20 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../../constants.dart';
 
-class LoginAndSignupBtn extends StatelessWidget {
+class LoginAndSignupBtn extends StatefulWidget {
   const LoginAndSignupBtn({
     Key key,
   }) : super(key: key);
 
+  @override
+  State<LoginAndSignupBtn> createState() => _LoginAndSignupBtnState();
+}
+
+class _LoginAndSignupBtnState extends State<LoginAndSignupBtn> {
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,7 +24,7 @@ class LoginAndSignupBtn extends StatelessWidget {
           child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, 'login_screen');
-                  },
+            },
             child: Text(
               "Login".toUpperCase(),
             ),
@@ -35,15 +44,15 @@ class LoginAndSignupBtn extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                 // return SignUpScreen();
-                },
-              ),
-            );
+          onPressed: () async {
+            try {
+              final newUser = await _auth.signInAnonymously();
+              if (newUser != null) {
+                Navigator.pushNamed(context, 'home_screen');
+              }
+            } catch (e) {
+              print(e);
+            }
           },
           style: ElevatedButton.styleFrom(
               primary: kPrimaryLightColor, elevation: 0),
@@ -55,4 +64,7 @@ class LoginAndSignupBtn extends StatelessWidget {
       ],
     );
   }
+
 }
+
+
