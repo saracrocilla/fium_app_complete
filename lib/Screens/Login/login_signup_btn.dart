@@ -15,6 +15,7 @@ class LoginAndSignupBtn extends StatefulWidget {
 
 class _LoginAndSignupBtnState extends State<LoginAndSignupBtn> {
   final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,6 +46,7 @@ class _LoginAndSignupBtnState extends State<LoginAndSignupBtn> {
         const SizedBox(height: 32),
         ElevatedButton(
           onPressed: () async {
+            buildShowDialog(context);
             try {
               final newUser = await _auth.signInAnonymously();
               if (newUser != null) {
@@ -65,6 +67,16 @@ class _LoginAndSignupBtnState extends State<LoginAndSignupBtn> {
     );
   }
 
+
+  buildShowDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+  }
+
 }
-
-
