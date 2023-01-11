@@ -1,12 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import '../../constants.dart';
 
 class LoginAndSignupBtn extends StatefulWidget {
   const LoginAndSignupBtn({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

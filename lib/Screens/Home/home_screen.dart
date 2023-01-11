@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:login_signup/Screens/welcome_screen.dart';
 
-User loggedinUser;
+User? loggedinUser;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
               leading: Icon(Icons.favorite_outlined,
                   color: HexColor('#f85f6a')),
               title: Text('Feedback'),
-              onTap: () => {Navigator.of(context).pop()},
+              onTap: () => {Navigator.pushNamed(context, 'feedback_screen')},
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app,

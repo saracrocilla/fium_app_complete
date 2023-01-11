@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../constants.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 
 import 'login_screen_top_image.dart';
@@ -16,20 +15,17 @@ class LoginScreen extends StatefulWidget {
 final _auth = FirebaseAuth.instance;
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email;
-  String password;
-  bool showSpinner = false;
+  late String email;
+  late String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ModalProgressHUD(
-        inAsyncCall: showSpinner,
-        child: SingleChildScrollView(
+      body:SingleChildScrollView(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-              const LoginScreenTopImage(),
+               LoginScreenTopImage(),
           Row(
             children: [
               Spacer(),
@@ -88,9 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       "Login".toUpperCase(),
                     ),
                   onPressed: () async {
-                    setState(() {
-                      showSpinner = true;
-                    });
+                    buildShowDialog(context);
                     try {
                       final user = await _auth.signInWithEmailAndPassword(
                           email: email, password: password);
@@ -100,9 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     } catch (e) {
                       print(e);
                     }
-                    setState(() {
-                      showSpinner = false;
-                    });
+
                   }),
               ),
             ],
@@ -117,7 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ]),
     ),
-    ),
     );
+  }
+  buildShowDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:login_signup/Screens/Feedback/feedback_screen.dart';
 import 'package:provider/provider.dart';
 import 'Screens/Home/home_screen.dart';
 import 'Screens/welcome_screen.dart';
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return StreamProvider<User>.value(
+    return StreamProvider<User?>.value(
         value: AuthService().user,
+      initialData: null,
       child: MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Auth',
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
         'welcome_screen': (context) => WelcomeScreen(),
         'registration_screen': (context) => RegistrationScreen(),
         'login_screen': (context) => LoginScreen(),
+        'feedback_screen': (context) => FeedbackScreen(),
         'home_screen': (context) => HomeScreen()
       },
     ),
@@ -65,7 +68,7 @@ class MyApp extends StatelessWidget {
 }
 
 class AuthService {
-  Stream<User> get user {
+  Stream<User?> get user {
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
     return _auth.authStateChanges();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RoundedButton extends StatelessWidget {
   RoundedButton(
-      {@required this.colour, @required this.title, @required this.onPressed});
+      {required this.colour, required this.title, required this.onPressed});
   final Color colour;
   final String title;
   final Function onPressed;
@@ -15,7 +15,7 @@ class RoundedButton extends StatelessWidget {
         color: colour,
         borderRadius: BorderRadius.circular(30.0),
         child: MaterialButton(
-          onPressed: onPressed,
+          onPressed: onPressed(),
           //Go to login screen.
           minWidth: 200.0,
           height: 42.0,

@@ -4,7 +4,7 @@ import '../constants.dart';
 
 class WelcomeImage extends StatelessWidget {
   const WelcomeImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

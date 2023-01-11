@@ -4,7 +4,7 @@ import '../../constants.dart';
 
 class LoginScreenTopImage extends StatelessWidget {
   const LoginScreenTopImage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
